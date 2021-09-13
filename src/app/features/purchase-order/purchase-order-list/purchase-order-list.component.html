@@ -1,1 +1,44 @@
-<p>purchase-order-list works!</p>
+<a routerLink="/purchaseorder/add" class="btn">Add Purchase Order</a>
+<table>
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Customer ID</th>
+            <th>Employee ID</th>
+            <th>Ship Name</th>
+            <th>Ship City</th>
+            <th>Ship Address</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let purchaseOrder of purchaseOrders">
+            <td>{{purchaseOrder.id}}</td>
+            <td>{{purchaseOrder.customerID}}</td>
+            <td>{{purchaseOrder.employeeID}}</td>
+            <td>{{purchaseOrder.shipName}}</td>
+            <td>{{purchaseOrder.shipCity}}</td>
+            <td>{{purchaseOrder.shipAddress}}</td>
+            <td>
+                <a [routerLink]="['/purchaseorder', purchaseOrder.id, 'edit']"   class="btn">Edit</a>&nbsp;&nbsp;
+                <button class="btn btn-del" (click)="delete(purchaseOrder.id)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="control-section">
+    <ejs-grid [dataSource]='purchaseOrders'  allowPaging='true' [allowSorting]="true"  [allowFiltering]="true" [filterSettings]='filterSettings'  [pageSettings]='pageSettings'>
+      <e-columns>
+          <e-column field='id' [filter]='filter' headerText='Order ID' width='90'  isPrimaryKey='true' [validationRules]='idrules'></e-column>
+          <e-column field='customerID' headerText='Customer ID' width='90'  [validationRules]='customeridrules'></e-column>
+          <e-column field='employeeID' headerText='Employee ID' width='90'  ></e-column>
+          <e-column field='shipName' headerText='Ship Name' width='90'  ></e-column>
+          <e-column field='shipCity' headerText='Ship City' width='90'  ></e-column>
+          <e-column field='shipAddress' headerText='Ship Address' width='90' ></e-column>
+           <e-column  ><a routerLink="'/purchaseorder'+ 'id'+ 'edit'"   class="btn">Edit</a></e-column>
+            <e-column ><button class="btn btn-del" (click)="delete('id')">Delete</button></e-column> 
+      </e-columns>
+      
+  </ejs-grid>
+  </div>
